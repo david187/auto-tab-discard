@@ -146,7 +146,7 @@ import {interrupts} from './plugins/loader.mjs';
           storage({
             'menu.discard-window': true,
             'menu.discard-rights': true,
-            'menu.discard-lefts': true,
+            'menu.discard-lefts': true
           }).then(prefs => chrome.contextMenus.update('discard-sub-menu', {
             visible: prefs['menu.discard-window'] || prefs['menu.discard-rights'] || prefs['menu.discard-lefts']
           }));
@@ -164,6 +164,8 @@ import {interrupts} from './plugins/loader.mjs';
   });
 
   const onClicked = async (info, tab) => {
+    console.log(info, tab);
+
     if (typeof interrupts !== 'undefined') {
       // wait for plug-in to be ready
       await interrupts['before-action']();
@@ -248,16 +250,22 @@ import {interrupts} from './plugins/loader.mjs';
       // discard-tree for Tree Style Tab
       if (menuItemId === 'discard-tree' && info.viewType === 'sidebar') {
         htabs.push(tab);
-        await chrome.runtime.sendMessage('treestyletab@piro.sakura.ne.jp', {
-          type: 'get-tree',
-          tab: tab.id
-        }, tab => {
-          const add = tab => {
-            htabs.push(...tab.children);
-            tab.children.filter(t => t.children).forEach(add);
+        try {
+          const resp = await chrome.runtime.sendMessage('treestyletab@piro.sakura.ne.jp', {
+            type: 'get-tree',
+            tab: tab.id
+          });
+          console.log(1, resp);
+          const add = resp => {
+            htabs.push(...resp.children);
+            resp.children.filter(t => t.children).forEach(add);
           };
-          add(tab);
-        });
+          add(resp);
+        }
+        catch (e) {
+          console.error(e);
+        }
+        console.log(htabs);
       }
       // discard-tree for native
       else if (tab.highlighted && menuItemId === 'discard-tree') { // if a single not-active tab is called
