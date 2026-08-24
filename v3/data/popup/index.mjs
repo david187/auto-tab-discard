@@ -116,6 +116,12 @@ const init = () => {
     if (tabs.some(t => t.index < tab.index) === false) {
       document.querySelector('[data-cmd=release-lefts]').classList.add('disabled');
     }
+    if (tab) {
+      const gtabs = tab.groupId > -1 ? tabs.filter(t => t.groupId === tab.groupId) : tabs.filter(t => t.highlighted);
+      if (gtabs.length === 0) {
+        document.querySelector('[data-cmd=release-tree]').classList.add('disabled');
+      }
+    }
   });
   chrome.tabs.query({
     currentWindow: false,

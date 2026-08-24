@@ -373,6 +373,45 @@ import {interrupts} from './plugins/loader.mjs';
     }
     // discard-tabs, discard-window, discard-other-windows, discard-rights, discard-lefts
     // release-tabs, release-window, release-other-windows, release-rights, release-lefts
+    else if (menuItemId === 'release-tree') {
+      let tabs = await query({
+        windowId: tab.windowId,
+        url: '*://*/*',
+        discarded: true,
+        active: false
+      });
+      // release-tree for Tree Style Tab
+      if (info.viewType === 'sidebar') {
+        const ids = [tab.id];
+        try {
+          const resp = await chrome.runtime.sendMessage('treestyletab@piro.sakura.ne.jp', {
+            type: 'get-tree',
+            tab: tab.id
+          });
+          const add = resp => {
+            ids.push(...resp.children.map(t => t.id));
+            resp.children.filter(t => t.children).forEach(add);
+          };
+          add(resp);
+        }
+        catch (e) {
+          console.error(e);
+        }
+        tabs = tabs.filter(t => ids.includes(t.id));
+      }
+      // release-tree for native
+      else if (tab.groupId && tab.groupId > -1) {
+        tabs = tabs.filter(t => t.groupId === tab.groupId);
+      }
+      else {
+        tabs = tabs.filter(t => t.highlighted);
+      }
+      for (const t of tabs) {
+        chrome.tabs.reload(t.id, {
+          bypassCache: shiftKey ? true : false
+        });
+      }
+    }
     else {
       const info = {
         url: '*://*/*',
