@@ -88,6 +88,13 @@ const restore = () => storage({
   'menu.discard-other-windows': true,
   'menu.discard-tabs': true,
   'menu.keep-tabs': true,
+  'menu.release-tab': true,
+  'menu.release-tree': true,
+  'menu.release-window': true,
+  'menu.release-rights': true,
+  'menu.release-lefts': true,
+  'menu.release-other-windows': true,
+  'menu.release-tabs': true,
   /* popup visibility */
   'popup.discard-tab': true,
   'popup.discard-tree': true,
@@ -163,6 +170,13 @@ const restore = () => storage({
   document.getElementById('menu.discard-other-windows').checked = prefs['menu.discard-other-windows'];
   document.getElementById('menu.discard-tabs').checked = prefs['menu.discard-tabs'];
   document.getElementById('menu.keep-tabs').checked = prefs['menu.keep-tabs'];
+  document.getElementById('menu.release-tab').checked = prefs['menu.release-tab'];
+  document.getElementById('menu.release-tree').checked = prefs['menu.release-tree'];
+  document.getElementById('menu.release-window').checked = prefs['menu.release-window'];
+  document.getElementById('menu.release-rights').checked = prefs['menu.release-rights'];
+  document.getElementById('menu.release-lefts').checked = prefs['menu.release-lefts'];
+  document.getElementById('menu.release-other-windows').checked = prefs['menu.release-other-windows'];
+  document.getElementById('menu.release-tabs').checked = prefs['menu.release-tabs'];
   /* popup visibility */
   document.getElementById('popup.discard-tab').checked = prefs['popup.discard-tab'];
   document.getElementById('popup.discard-tree').checked = prefs['popup.discard-tree'];
@@ -265,6 +279,13 @@ document.getElementById('save').addEventListener('click', () => {
     'menu.discard-other-windows': document.getElementById('menu.discard-other-windows').checked,
     'menu.discard-tabs': document.getElementById('menu.discard-tabs').checked,
     'menu.keep-tabs': document.getElementById('menu.keep-tabs').checked,
+    'menu.release-tab': document.getElementById('menu.release-tab').checked,
+    'menu.release-tree': document.getElementById('menu.release-tree').checked,
+    'menu.release-window': document.getElementById('menu.release-window').checked,
+    'menu.release-rights': document.getElementById('menu.release-rights').checked,
+    'menu.release-lefts': document.getElementById('menu.release-lefts').checked,
+    'menu.release-other-windows': document.getElementById('menu.release-other-windows').checked,
+    'menu.release-tabs': document.getElementById('menu.release-tabs').checked,
     /* popup visibility */
     'popup.discard-tab': document.getElementById('popup.discard-tab').checked,
     'popup.discard-tree': document.getElementById('popup.discard-tree').checked,

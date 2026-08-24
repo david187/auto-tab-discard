@@ -22,7 +22,14 @@ import {interrupts} from './plugins/loader.mjs';
       'menu.discard-lefts': true,
       'menu.discard-other-windows': true,
       'menu.discard-tabs': true,
-      'menu.keep-tabs': true
+      'menu.keep-tabs': true,
+      'menu.release-tab': true,
+      'menu.release-tree': true,
+      'menu.release-window': true,
+      'menu.release-rights': true,
+      'menu.release-lefts': true,
+      'menu.release-other-windows': true,
+      'menu.release-tabs': true
     });
 
     const contexts = ['action'];
@@ -91,6 +98,61 @@ import {interrupts} from './plugins/loader.mjs';
       visible: visibilityPrefs['menu.discard-lefts']
     });
     chrome.contextMenus.create({
+      id: 'release-tab',
+      title: chrome.i18n.getMessage('menu_release_tab'),
+      contexts,
+      documentUrlPatterns: ['*://*/*'],
+      visible: visibilityPrefs['menu.release-tab']
+    });
+    chrome.contextMenus.create({
+      id: 'release-tree',
+      title: chrome.i18n.getMessage('menu_release_tree'),
+      contexts,
+      documentUrlPatterns: ['*://*/*'],
+      visible: visibilityPrefs['menu.release-tree']
+    });
+    chrome.contextMenus.create({
+      id: 'release-other-windows',
+      title: chrome.i18n.getMessage('menu_release_other_windows'),
+      contexts,
+      visible: visibilityPrefs['menu.release-other-windows']
+    });
+    chrome.contextMenus.create({
+      id: 'release-tabs',
+      title: chrome.i18n.getMessage('menu_release_tabs'),
+      contexts,
+      visible: visibilityPrefs['menu.release-tabs']
+    });
+    chrome.contextMenus.create({
+      id: 'release-sub-menu',
+      title: chrome.i18n.getMessage('menu_release_menu'),
+      contexts,
+      visible: visibilityPrefs['menu.release-window'] ||
+        visibilityPrefs['menu.release-rights'] ||
+        visibilityPrefs['menu.release-lefts']
+    });
+    chrome.contextMenus.create({
+      id: 'release-window',
+      title: chrome.i18n.getMessage('menu_release_window'),
+      contexts,
+      parentId: 'release-sub-menu',
+      visible: visibilityPrefs['menu.release-window']
+    });
+    chrome.contextMenus.create({
+      id: 'release-rights',
+      title: chrome.i18n.getMessage('menu_release_rights'),
+      contexts,
+      parentId: 'release-sub-menu',
+      visible: visibilityPrefs['menu.release-rights']
+    });
+    chrome.contextMenus.create({
+      id: 'release-lefts',
+      title: chrome.i18n.getMessage('menu_release_lefts'),
+      contexts,
+      parentId: 'release-sub-menu',
+      visible: visibilityPrefs['menu.release-lefts']
+    });
+    chrome.contextMenus.create({
       id: 'extra',
       title: chrome.i18n.getMessage('menu_extra'),
       contexts,
@@ -151,6 +213,15 @@ import {interrupts} from './plugins/loader.mjs';
             visible: prefs['menu.discard-window'] || prefs['menu.discard-rights'] || prefs['menu.discard-lefts']
           }));
         }
+        if (key === 'menu.release-window' || key === 'menu.release-rights' || key === 'menu.release-lefts') {
+          storage({
+            'menu.release-window': true,
+            'menu.release-rights': true,
+            'menu.release-lefts': true
+          }).then(prefs => chrome.contextMenus.update('release-sub-menu', {
+            visible: prefs['menu.release-window'] || prefs['menu.release-rights'] || prefs['menu.release-lefts']
+          }));
+        }
       }
       else if (key === 'link.context') {
         chrome.contextMenus.update('open-tab-then-discard', {
@@ -164,8 +235,6 @@ import {interrupts} from './plugins/loader.mjs';
   });
 
   const onClicked = async (info, tab) => {
-    console.log(info, tab);
-
     if (typeof interrupts !== 'undefined') {
       // wait for plug-in to be ready
       await interrupts['before-action']();
@@ -255,7 +324,6 @@ import {interrupts} from './plugins/loader.mjs';
             type: 'get-tree',
             tab: tab.id
           });
-          console.log(1, resp);
           const add = resp => {
             htabs.push(...resp.children);
             resp.children.filter(t => t.children).forEach(add);
@@ -265,7 +333,6 @@ import {interrupts} from './plugins/loader.mjs';
         catch (e) {
           console.error(e);
         }
-        console.log(htabs);
       }
       // discard-tree for native
       else if (tab.highlighted && menuItemId === 'discard-tree') { // if a single not-active tab is called
@@ -373,6 +440,11 @@ import {interrupts} from './plugins/loader.mjs';
     }
     // discard-tabs, discard-window, discard-other-windows, discard-rights, discard-lefts
     // release-tabs, release-window, release-other-windows, release-rights, release-lefts
+    else if (menuItemId === 'release-tab') {
+      chrome.tabs.reload(tab.id, {
+        bypassCache: shiftKey ? true : false
+      });
+    }
     else if (menuItemId === 'release-tree') {
       let tabs = await query({
         windowId: tab.windowId,

@@ -18,8 +18,6 @@ chrome.storage.local.get([
   'popup.discard-other-windows',
   'popup.discard-tabs'
 ], prefs => {
-  console.log(prefs);
-
   document.querySelectorAll('.popup-item').forEach(item => {
     const pref = item.dataset.pref;
     if (pref && prefs[pref] === false) {
