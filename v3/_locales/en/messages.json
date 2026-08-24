@@ -347,6 +347,12 @@
   "popup_allowed_reset": {
     "message": "Allow Selected Tabs to Be Discarded"
   },
+  "popup_force_discard": {
+    "message": "Force Discard (ignore exceptions)"
+  },
+  "popup_forced_hint": {
+    "message": "Clicks discard immediately and ignore the auto-discarding exception rules. Use Shift + Click to respect them."
+  },
   "popup_open_options": {
     "message": "Options"
   },

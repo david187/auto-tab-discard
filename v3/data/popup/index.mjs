@@ -36,6 +36,21 @@ allowed.addEventListener('change', () => {
   });
 });
 
+// forced discarding (simulates Shift + Click)
+const forced = document.getElementById('force-discard');
+const updateHints = () => {
+  const msg = chrome.i18n.getMessage(forced.checked ? 'popup_forced_hint' : 'popup_shift_hint');
+  [...document.querySelectorAll('[data-i18n-title="popup_shift_hint"]')].forEach(e => e.title = msg);
+};
+chrome.storage.local.get({'force-discard': false}, prefs => {
+  forced.checked = prefs['force-discard'];
+  updateHints();
+});
+forced.addEventListener('change', () => {
+  chrome.storage.local.set({'force-discard': forced.checked});
+  updateHints();
+});
+
 const whitelist = {
   always: document.querySelector('[data-cmd=whitelist-domain]'),
   session: document.querySelector('[data-cmd=whitelist-session]')
@@ -157,7 +172,7 @@ document.addEventListener('click', e => {
     chrome.runtime.sendMessage({
       method: 'popup',
       cmd,
-      shiftKey: e.shiftKey,
+      shiftKey: cmd.startsWith('discard') ? (e.shiftKey !== forced.checked) : e.shiftKey,
       checked: e.target.checked
     }, () => {
       if (['whitelist-session', 'whitelist-domain'].includes(cmd) === false) {

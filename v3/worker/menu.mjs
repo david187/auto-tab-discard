@@ -604,7 +604,15 @@ import {interrupts} from './plugins/loader.mjs';
     }
   };
 
-  chrome.contextMenus.onClicked.addListener(onClicked);
+  chrome.contextMenus.onClicked.addListener(async (info, tab) => {
+    // respect the popup's "Force Discard" toggle; context-menu events carry no shift info
+    if (String(info.menuItemId).startsWith('discard')) {
+      info.shiftKey = info.shiftKey || (await storage({
+        'force-discard': false
+      }))['force-discard'];
+    }
+    await onClicked(info, tab);
+  });
   chrome.action.onClicked.addListener(async tab => {
     const prefs = await storage({
       'click': 'click.popup'
