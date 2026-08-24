@@ -28,7 +28,9 @@ const prefs = {
   'menu.discard-lefts': true,
   'menu.discard-other-windows': true,
   'menu.discard-tabs': true,
-  'menu.keep-tabs': true,
+  'menu.auto-discardable': true,
+  'menu.allow-discardable': true,
+  'menu.whitelist-domain': true,
   /* popup visibility */
   'popup.discard-tab': true,
   'popup.discard-tree': true,

@@ -227,8 +227,14 @@
   "options_item_release_tabs": {
     "message": "Release All Other Tabs"
   },
-  "options_item_keep_tabs": {
-    "message": "Keep Tabs (Whitelist/Allow)"
+  "options_item_keep_tabs_session": {
+    "message": "Keep Tabs for This Session"
+  },
+  "options_item_keep_tabs_allow": {
+    "message": "Allow Tabs to Be Discarded"
+  },
+  "options_item_keep_tabs_whitelist": {
+    "message": "Always Keep Tabs for This Site"
   },
   "options_item_open_tab_then_discard": {
     "message": "Open in New Discarded Tab (Link Context)"

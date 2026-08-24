@@ -87,7 +87,9 @@ const restore = () => storage({
   'menu.discard-lefts': true,
   'menu.discard-other-windows': true,
   'menu.discard-tabs': true,
-  'menu.keep-tabs': true,
+  'menu.auto-discardable': true,
+  'menu.allow-discardable': true,
+  'menu.whitelist-domain': true,
   'menu.release-tab': true,
   'menu.release-tree': true,
   'menu.release-window': true,
@@ -169,7 +171,9 @@ const restore = () => storage({
   document.getElementById('menu.discard-lefts').checked = prefs['menu.discard-lefts'];
   document.getElementById('menu.discard-other-windows').checked = prefs['menu.discard-other-windows'];
   document.getElementById('menu.discard-tabs').checked = prefs['menu.discard-tabs'];
-  document.getElementById('menu.keep-tabs').checked = prefs['menu.keep-tabs'];
+  document.getElementById('menu.auto-discardable').checked = prefs['menu.auto-discardable'];
+  document.getElementById('menu.allow-discardable').checked = prefs['menu.allow-discardable'];
+  document.getElementById('menu.whitelist-domain').checked = prefs['menu.whitelist-domain'];
   document.getElementById('menu.release-tab').checked = prefs['menu.release-tab'];
   document.getElementById('menu.release-tree').checked = prefs['menu.release-tree'];
   document.getElementById('menu.release-window').checked = prefs['menu.release-window'];
@@ -278,7 +282,9 @@ document.getElementById('save').addEventListener('click', () => {
     'menu.discard-lefts': document.getElementById('menu.discard-lefts').checked,
     'menu.discard-other-windows': document.getElementById('menu.discard-other-windows').checked,
     'menu.discard-tabs': document.getElementById('menu.discard-tabs').checked,
-    'menu.keep-tabs': document.getElementById('menu.keep-tabs').checked,
+    'menu.auto-discardable': document.getElementById('menu.auto-discardable').checked,
+    'menu.allow-discardable': document.getElementById('menu.allow-discardable').checked,
+    'menu.whitelist-domain': document.getElementById('menu.whitelist-domain').checked,
     'menu.release-tab': document.getElementById('menu.release-tab').checked,
     'menu.release-tree': document.getElementById('menu.release-tree').checked,
     'menu.release-window': document.getElementById('menu.release-window').checked,

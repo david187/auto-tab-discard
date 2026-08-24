@@ -22,7 +22,9 @@ import {interrupts} from './plugins/loader.mjs';
       'menu.discard-lefts': true,
       'menu.discard-other-windows': true,
       'menu.discard-tabs': true,
-      'menu.keep-tabs': true,
+      'menu.auto-discardable': true,
+      'menu.allow-discardable': true,
+      'menu.whitelist-domain': true,
       'menu.release-tab': true,
       'menu.release-tree': true,
       'menu.release-window': true,
@@ -157,28 +159,33 @@ import {interrupts} from './plugins/loader.mjs';
       title: chrome.i18n.getMessage('menu_extra'),
       contexts,
       documentUrlPatterns: ['*://*/*'],
-      visible: visibilityPrefs['menu.keep-tabs']
+      visible: visibilityPrefs['menu.auto-discardable'] ||
+        visibilityPrefs['menu.allow-discardable'] ||
+        visibilityPrefs['menu.whitelist-domain']
     });
     chrome.contextMenus.create({
       id: 'auto-discardable',
       title: chrome.i18n.getMessage('popup_allowed'),
       contexts,
       documentUrlPatterns: ['*://*/*'],
-      parentId: 'extra'
+      parentId: 'extra',
+      visible: visibilityPrefs['menu.auto-discardable']
     });
     chrome.contextMenus.create({
       id: 'allow-discardable',
       title: chrome.i18n.getMessage('popup_allowed_reset'),
       contexts,
       documentUrlPatterns: ['*://*/*'],
-      parentId: 'extra'
+      parentId: 'extra',
+      visible: visibilityPrefs['menu.allow-discardable']
     });
     chrome.contextMenus.create({
       id: 'whitelist-domain',
       title: chrome.i18n.getMessage('menu_whitelist_domain'),
       contexts,
       documentUrlPatterns: ['*://*/*'],
-      parentId: 'extra'
+      parentId: 'extra',
+      visible: visibilityPrefs['menu.whitelist-domain']
     });
     chrome.contextMenus.create({
       id: 'open-tab-then-discard',
@@ -196,14 +203,21 @@ import {interrupts} from './plugins/loader.mjs';
   chrome.storage.onChanged.addListener(ps => {
     for (const [key, value] of Object.entries(ps)) {
       if (key.startsWith('menu.')) {
-        let id = key.replace('menu.', '');
-        if (id === 'keep-tabs') {
-          id = 'extra';
-        }
-        chrome.contextMenus.update(id, {
+        chrome.contextMenus.update(key.replace('menu.', ''), {
           visible: value.newValue
         });
 
+        if (key === 'menu.auto-discardable' || key === 'menu.allow-discardable' || key === 'menu.whitelist-domain') {
+          storage({
+            'menu.auto-discardable': true,
+            'menu.allow-discardable': true,
+            'menu.whitelist-domain': true
+          }).then(prefs => chrome.contextMenus.update('extra', {
+            visible: prefs['menu.auto-discardable'] ||
+              prefs['menu.allow-discardable'] ||
+              prefs['menu.whitelist-domain']
+          }));
+        }
         if (key === 'menu.discard-window' || key === 'menu.discard-rights' || key === 'menu.discard-lefts') {
           storage({
             'menu.discard-window': true,
