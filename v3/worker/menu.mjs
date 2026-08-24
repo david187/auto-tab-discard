@@ -16,21 +16,21 @@ import {interrupts} from './plugins/loader.mjs';
 
     const visibilityPrefs = await storage({
       'menu.discard-tab': true,
-      'menu.discard-tree': true,
-      'menu.discard-window': true,
-      'menu.discard-rights': true,
-      'menu.discard-lefts': true,
+      'menu.discard-tree': false,
+      'menu.discard-window': false,
+      'menu.discard-rights': false,
+      'menu.discard-lefts': false,
       'menu.discard-other-windows': true,
       'menu.discard-tabs': true,
       'menu.auto-discardable': true,
       'menu.allow-discardable': true,
       'menu.whitelist-domain': true,
-      'menu.release-tab': true,
-      'menu.release-tree': true,
-      'menu.release-window': true,
-      'menu.release-rights': true,
-      'menu.release-lefts': true,
-      'menu.release-other-windows': true,
+      'menu.release-tab': false,
+      'menu.release-tree': false,
+      'menu.release-window': false,
+      'menu.release-rights': false,
+      'menu.release-lefts': false,
+      'menu.release-other-windows': false,
       'menu.release-tabs': true
     });
 
@@ -220,18 +220,18 @@ import {interrupts} from './plugins/loader.mjs';
         }
         if (key === 'menu.discard-window' || key === 'menu.discard-rights' || key === 'menu.discard-lefts') {
           storage({
-            'menu.discard-window': true,
-            'menu.discard-rights': true,
-            'menu.discard-lefts': true
+            'menu.discard-window': false,
+            'menu.discard-rights': false,
+            'menu.discard-lefts': false
           }).then(prefs => chrome.contextMenus.update('discard-sub-menu', {
             visible: prefs['menu.discard-window'] || prefs['menu.discard-rights'] || prefs['menu.discard-lefts']
           }));
         }
         if (key === 'menu.release-window' || key === 'menu.release-rights' || key === 'menu.release-lefts') {
           storage({
-            'menu.release-window': true,
-            'menu.release-rights': true,
-            'menu.release-lefts': true
+            'menu.release-window': false,
+            'menu.release-rights': false,
+            'menu.release-lefts': false
           }).then(prefs => chrome.contextMenus.update('release-sub-menu', {
             visible: prefs['menu.release-window'] || prefs['menu.release-rights'] || prefs['menu.release-lefts']
           }));
