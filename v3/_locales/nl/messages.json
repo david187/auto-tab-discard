@@ -231,6 +231,58 @@
         "message": "Tijdstempel van YouTube bewaren voor deactiveren",
         "description": ""
     },
+    "options_menu_visibility": {
+        "message": "Menuzichtbaarheid",
+        "description": ""
+    },
+    "options_popup_view": {
+        "message": "Pop-upweergave",
+        "description": ""
+    },
+    "options_context_menu_view": {
+        "message": "Contextmenuweergave",
+        "description": ""
+    },
+    "options_menu_item": {
+        "message": "Menu-item",
+        "description": ""
+    },
+    "options_item_discard_tab": {
+        "message": "Dit tabblad deactiveren",
+        "description": ""
+    },
+    "options_item_discard_tree": {
+        "message": "Tabbladgroep deactiveren",
+        "description": ""
+    },
+    "options_item_discard_window": {
+        "message": "Andere tabbladen in dit venster deactiveren",
+        "description": ""
+    },
+    "options_item_discard_rights": {
+        "message": "Tabbladen rechts deactiveren",
+        "description": ""
+    },
+    "options_item_discard_lefts": {
+        "message": "Tabbladen links deactiveren",
+        "description": ""
+    },
+    "options_item_discard_other_windows": {
+        "message": "Tabbladen in andere vensters deactiveren",
+        "description": ""
+    },
+    "options_item_discard_tabs": {
+        "message": "Alle andere tabbladen deactiveren",
+        "description": ""
+    },
+    "options_item_keep_tabs": {
+        "message": "Tabbladen behouden (Witte lijst / Toestaan)",
+        "description": ""
+    },
+    "options_item_open_tab_then_discard": {
+        "message": "Openen in nieuw gedeactiveerd tabblad (Koppelingscontext)",
+        "description": ""
+    },
     "options_log": {
         "message": "Logs weergeven (alleen voor foutopsporingsdoeleinden)",
         "description": ""
