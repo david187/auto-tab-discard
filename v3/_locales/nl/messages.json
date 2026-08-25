@@ -275,8 +275,44 @@
         "message": "Alle andere tabbladen deactiveren",
         "description": ""
     },
-    "options_item_keep_tabs": {
-        "message": "Tabbladen behouden (Witte lijst / Toestaan)",
+    "options_item_release_tab": {
+        "message": "Tabblad heractiveren",
+        "description": ""
+    },
+    "options_item_release_tree": {
+        "message": "Tabbladgroep heractiveren",
+        "description": ""
+    },
+    "options_item_release_window": {
+        "message": "Andere tabbladen in dit venster heractiveren",
+        "description": ""
+    },
+    "options_item_release_rights": {
+        "message": "Tabbladen rechts heractiveren",
+        "description": ""
+    },
+    "options_item_release_lefts": {
+        "message": "Tabbladen links heractiveren",
+        "description": ""
+    },
+    "options_item_release_other_windows": {
+        "message": "Tabbladen in andere vensters heractiveren",
+        "description": ""
+    },
+    "options_item_release_tabs": {
+        "message": "Alle andere tabbladen heractiveren",
+        "description": ""
+    },
+    "options_item_keep_tabs_session": {
+        "message": "Tabbladen voor deze sessie behouden",
+        "description": ""
+    },
+    "options_item_keep_tabs_allow": {
+        "message": "Tabbladen mogen worden gedeactiveerd",
+        "description": ""
+    },
+    "options_item_keep_tabs_whitelist": {
+        "message": "Tabbladen voor deze website altijd behouden",
         "description": ""
     },
     "options_item_open_tab_then_discard": {
@@ -427,6 +463,14 @@
         "message": "Geselecteerde tabbladen mogen worden gedeactiveerd",
         "description": ""
     },
+    "popup_force_discard": {
+        "message": "Geforceerd deactiveren (uitzonderingen negeren)",
+        "description": ""
+    },
+    "popup_forced_hint": {
+        "message": "(Muis)klikken deactiveren onmiddellijk en negeren de uitzonderingsregels voor automatisch deactiveren. Gebruik Shift + klikken om deze te respecteren.",
+        "description": ""
+    },
     "popup_open_options": {
         "message": "Opties",
         "description": ""
@@ -505,6 +549,38 @@
     },
     "menu_discard_other_windows": {
         "message": "Tabbladen in andere vensters deactiveren",
+        "description": ""
+    },
+    "menu_release_tab": {
+        "message": "Tabblad heractiveren",
+        "description": ""
+    },
+    "menu_release_tree": {
+        "message": "Tabbladgroep heractiveren",
+        "description": ""
+    },
+    "menu_release_menu": {
+        "message": "Tabbladen in dit venster heractiveren",
+        "description": ""
+    },
+    "menu_release_tabs": {
+        "message": "Alle andere tabbladen heractiveren",
+        "description": ""
+    },
+    "menu_release_rights": {
+        "message": "Tabbladen rechts heractiveren",
+        "description": ""
+    },
+    "menu_release_lefts": {
+        "message": "Tabbladen links heractiveren",
+        "description": ""
+    },
+    "menu_release_window": {
+        "message": "Andere tabbladen heractiveren",
+        "description": ""
+    },
+    "menu_release_other_windows": {
+        "message": "Tabbladen in andere vensters heractiveren",
         "description": ""
     },
     "menu_extra": {
