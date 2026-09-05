@@ -55,6 +55,10 @@
         "message": "Добавляет символ к выгруженным вкладкам (например 💤 или ⏻︎) (если возможно)",
         "description": ""
     },
+    "options_discard_protected_on_close": {
+        "message": "Отменить закрепленные или сгруппированные вкладки вместо их закрытия (из интерфейса навигации или команды пользователя)",
+        "description": ""
+    },
     "options_startup_unpinned": {
         "message": "Выгружать все незакрепленные вкладки при запуске браузера или расширения",
         "description": ""
@@ -96,7 +100,7 @@
         "description": ""
     },
     "options_split_view": {
-        "message": "Не выгружать вкладку, если она находится в разделенном представлении и любая из вкладок разделения находится в фокусе",
+        "message": "Не выгружать вкладку, если она находится в разделенном представлении и любая вкладка разделения находится в фокусе",
         "description": ""
     },
     "options_form": {
@@ -135,6 +139,10 @@
         "message": "Действие ЛКМ по панели инструментов",
         "description": ""
     },
+    "options_click": {
+        "message": "При нажатии левой кнопкой мыши на кнопку действия",
+        "description": ""
+    },
     "options_click_popup": {
         "message": "Открыть всплывающее окно",
         "description": ""
@@ -168,7 +176,7 @@
         "description": ""
     },
     "options_click_toggle_allowed": {
-        "message": "Переключить настройку \"Хранить вкладку на время текущей сессии\"",
+        "message": "Переключить параметр \"Хранить выбранные вкладки на время текущей сессии\"",
         "description": ""
     },
     "options_misc": {
@@ -221,6 +229,94 @@
     },
     "options_plugin_youtube": {
         "message": "Сохранять временную метку YouTube перед выгрузкой",
+        "description": ""
+    },
+    "options_menu_visibility": {
+        "message": "Видимость меню",
+        "description": ""
+    },
+    "options_popup_view": {
+        "message": "Всплывающее окно",
+        "description": ""
+    },
+    "options_context_menu_view": {
+        "message": "Вид контекстного меню",
+        "description": ""
+    },
+    "options_menu_item": {
+        "message": "Пункт меню",
+        "description": ""
+    },
+    "options_item_discard_tab": {
+        "message": "Выгрузить эту вкладку",
+        "description": ""
+    },
+    "options_item_discard_tree": {
+        "message": "Выгрузить группу вкладок",
+        "description": ""
+    },
+    "options_item_discard_window": {
+        "message": "Выгрузить остальные вкладки в этом окне",
+        "description": ""
+    },
+    "options_item_discard_rights": {
+        "message": "Выгрузить вкладки справа",
+        "description": ""
+    },
+    "options_item_discard_lefts": {
+        "message": "Выгрузить вкладки слева",
+        "description": ""
+    },
+    "options_item_discard_other_windows": {
+        "message": "Выгрузить вкладки в других окнах",
+        "description": ""
+    },
+    "options_item_discard_tabs": {
+        "message": "Выгрузить остальные вкладки",
+        "description": ""
+    },
+    "options_item_release_tab": {
+        "message": "Выгрузить вкладку",
+        "description": ""
+    },
+    "options_item_release_tree": {
+        "message": "Выгрузить группу вкладок",
+        "description": ""
+    },
+    "options_item_release_window": {
+        "message": "Выгрузить остальные вкладки в этом окне",
+        "description": ""
+    },
+    "options_item_release_rights": {
+        "message": "Выгрузить вкладки справа",
+        "description": ""
+    },
+    "options_item_release_lefts": {
+        "message": "Выгрузить вкладки слева",
+        "description": ""
+    },
+    "options_item_release_other_windows": {
+        "message": "Выгрузить вкладки в других окнах",
+        "description": ""
+    },
+    "options_item_release_tabs": {
+        "message": "Выгрузить остальные вкладки",
+        "description": ""
+    },
+    "options_item_keep_tabs_session": {
+        "message": "Хранить вкладки для этой сессии",
+        "description": ""
+    },
+    "options_item_keep_tabs_allow": {
+        "message": "Разрешить выгружать вкладки",
+        "description": ""
+    },
+    "options_item_keep_tabs_whitelist": {
+        "message": "Всегда хранить вкладки с этого сайта",
+        "description": ""
+    },
+    "options_item_open_tab_then_discard": {
+        "message": "Открыть ссылку в новой выгруженной вкладке (контекст ссылки)",
         "description": ""
     },
     "options_log": {
@@ -363,6 +459,18 @@
         "message": "Хранить выбранные вкладки на время текущей сессии",
         "description": ""
     },
+    "popup_allowed_reset": {
+        "message": "Разрешить выгружать выбранные вкладки",
+        "description": ""
+    },
+    "popup_force_discard": {
+        "message": "Выгружать принудительно (игнорировать исключения)",
+        "description": ""
+    },
+    "popup_forced_hint": {
+        "message": "Клики сразу же выгружают и игнорируют правила исключений автоматической выгрузки . Чтобы они учитывались, используйте Shift + клик.",
+        "description": ""
+    },
     "popup_open_options": {
         "message": "Настройки",
         "description": ""
@@ -440,6 +548,38 @@
         "description": ""
     },
     "menu_discard_other_windows": {
+        "message": "Выгрузить вкладки в других окнах",
+        "description": ""
+    },
+    "menu_release_tab": {
+        "message": "Выгрузить вкладку",
+        "description": ""
+    },
+    "menu_release_tree": {
+        "message": "Выгрузить группу вкладок",
+        "description": ""
+    },
+    "menu_release_menu": {
+        "message": "Выгрузить вкладки в этом окне",
+        "description": ""
+    },
+    "menu_release_tabs": {
+        "message": "Выгрузить остальные вкладки",
+        "description": ""
+    },
+    "menu_release_rights": {
+        "message": "Выгрузить вкладки справа",
+        "description": ""
+    },
+    "menu_release_lefts": {
+        "message": "Выгрузить вкладки слева",
+        "description": ""
+    },
+    "menu_release_window": {
+        "message": "Выгрузить другие вкладки",
+        "description": ""
+    },
+    "menu_release_other_windows": {
         "message": "Выгрузить вкладки в других окнах",
         "description": ""
     },
