@@ -76,29 +76,28 @@ starters.push(() => chrome.action.setBadgeBackgroundColor({
 }));
 
 /* FAQs & Feedback */
+// O5: align with data_collection_permissions.required:["none"]. Removed webextension.org navigation
+// (onInstalled open homepage and uninstall URL version/name query) — now uses local notification only.
 {
-  const {management, runtime: {onInstalled, setUninstallURL, getManifest}, tabs} = chrome;
+  const {management, runtime: {onInstalled, setUninstallURL, getManifest}, notifications} = chrome;
   if (navigator.webdriver !== true) {
-    const page = getManifest().homepage_url;
     const {name, version} = getManifest();
-    onInstalled.addListener(({reason, previousVersion}) => {
+    onInstalled.addListener(({reason}) => {
       management.getSelf(({installType}) => installType === 'normal' && storage({
         'faqs': true,
         'last-update': 0
       }).then(prefs => {
-        if (reason === 'install' || (prefs.faqs && reason === 'update')) {
-          const doUpdate = (Date.now() - prefs['last-update']) / 1000 / 60 / 60 / 24 > 45;
-          if (doUpdate && previousVersion !== version) {
-            tabs.query({active: true, currentWindow: true}, tbs => tabs.create({
-              url: page + '?version=' + version + (previousVersion ? '&p=' + previousVersion : '') + '&type=' + reason,
-              active: reason === 'install',
-              ...(tbs && tbs.length && {index: tbs[0].index + 1})
-            }));
-            chrome.storage.local.set({'last-update': Date.now()});
-          }
+        if (reason === 'install' && prefs.faqs) {
+          notifications.create({
+            type: 'basic',
+            title: name,
+            message: chrome.i18n.getMessage('installed_notification') || `Installed ${name} ${version}`,
+            iconUrl: '/data/icons/48.png'
+          });
         }
       }));
     });
-    setUninstallURL(page + '?rd=feedback&name=' + encodeURIComponent(name) + '&version=' + version);
+    // Standard uninstall feedback page; no version/name query to avoid fingerprinting.
+    setUninstallURL(getManifest().homepage_url);
   }
 }

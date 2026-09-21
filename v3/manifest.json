@@ -24,6 +24,9 @@
     "alarms",
     "scripting"
   ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
   "background": {
     "page": "/firefox/background.html",
     "service_worker": "worker/core.mjs",
@@ -78,10 +81,7 @@
       "description": "__MSG_cmd_close__"
     }
   },
-  "web_accessible_resources": [{
-    "resources": ["/data/page.png"],
-    "matches": ["*://*/*"]
-  }],
+  "web_accessible_resources": [],
   "browser_specific_settings": {
     "gecko": {
       "id": "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}",
