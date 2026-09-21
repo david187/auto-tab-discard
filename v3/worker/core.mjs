@@ -16,7 +16,13 @@ import './menu.mjs';
   }
 */
 
+// S3: onMessageExternal accepts {method:'discard'} from external callers. No externally_connectable
+// is declared, so any actual external caller would be unauthorized — guard with sender.id self-check.
 chrome.runtime.onMessageExternal.addListener((request, sender, resposne) => {
+  if (sender.id !== chrome.runtime.id) {
+    log('onMessageExternal rejected: unauthorized sender', sender.id);
+    return false;
+  }
   if (request.method === 'discard') {
     log('onMessageExternal request received', request);
 

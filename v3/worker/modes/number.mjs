@@ -361,23 +361,7 @@ chrome.idle.onStateChanged.addListener(state => {
 }
 
 /* inject to existing tabs */
-starters.push(() => chrome.app && query({
-  url: '*://*/*',
-  discarded: false
-}).then(tbs => {
-  const contentScripts = chrome.app.getDetails().content_scripts;
-  for (const tab of tbs) {
-    for (const cs of contentScripts) {
-      chrome.scripting.executeScript({
-        target: {
-          tabId: tab.id,
-          allFrames: cs.all_frames
-        },
-        files: cs.js
-      }).catch(() => {});
-    }
-  }
-}));
+// S6: removed redundant injection — manifest content_scripts are auto-injected by the browser.
 
 /* temporarily disable auto discarding */
 {

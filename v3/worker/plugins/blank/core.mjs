@@ -1,6 +1,20 @@
 import {overwrite, release} from '../loader.mjs';
 import {log, query} from '../../core/utils.mjs';
 
+// S5: only return favicon URL when its origin matches the tab's URL,
+// preventing arbitrary outbound GETs from extension origin.
+function sameOriginFavicon(tb) {
+  if (!tb || !tb.favIconUrl || !tb.url) return '';
+  try {
+    const a = new URL(tb.favIconUrl);
+    const b = new URL(tb.url);
+    if (a.protocol !== 'https:' && a.protocol !== 'http:') return '';
+    return a.hostname === b.hostname && a.protocol === b.protocol ? a.href : '';
+  } catch (e) {
+    return '';
+  }
+}
+
 function enable() {
   log('blank.enable is called');
   overwrite('before-menu-click', function({menuItemId}, tab) {
@@ -25,7 +39,8 @@ function enable() {
       }).then(tbs => Promise.all(tbs.map(tb => {
         const args = new URLSearchParams();
         args.set('title', tb.title);
-        args.set('favicon', tb.favIconUrl);
+        // S5: same-origin check before forwarding favicon URL
+        args.set('favicon', sameOriginFavicon(tb));
 
         return chrome.tabs.create({
           openerTabId: tb.id,
@@ -45,7 +60,8 @@ function enable() {
         if (tbs.length === 0 && tab.url?.startsWith('http')) {
           const args = new URLSearchParams();
           args.set('title', tab.title);
-          args.set('favicon', tab.favIconUrl);
+          // S5: same-origin check before forwarding favicon URL
+          args.set('favicon', sameOriginFavicon(tab));
 
           return chrome.tabs.create({
             openerTabId: tab.id,

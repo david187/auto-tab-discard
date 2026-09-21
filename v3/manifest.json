@@ -24,16 +24,12 @@
     "alarms",
     "scripting"
   ],
-  "host_permissions": [
-    "*://*/*"
-  ],
   "background": {
     "page": "/firefox/background.html",
     "service_worker": "worker/core.mjs",
     "type": "module"
   },
   "content_scripts": [{
-    "match_about_blank": true,
     "matches": ["<all_urls>"],
     "js": [
       "/data/inject/watch.js"

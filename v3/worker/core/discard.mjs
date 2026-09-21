@@ -55,20 +55,21 @@ const discard = tab => {
               tabId: tab.id,
               allFrames: true
             },
-            func: (prefs, src) => {
+            // S4: pass only the two scalar fields used by the page function, not the entire prefs object.
+            func: (prepends, enableFavicon, src) => {
               window.stop();
               if (window === window.top) {
-                if (prefs.prepends) {
+                if (prepends) {
                   const title = document.title || location.href || '';
-                  if (title.startsWith(prefs.prepends) === false) {
-                    document.title = prefs.prepends + ' ' + title;
+                  if (title.startsWith(prepends) === false) {
+                    document.title = prepends + ' ' + title;
                   }
 
-                  if (prefs.favicon === false) {
+                  if (enableFavicon === false) {
                     return true;
                   }
                 }
-                if (prefs.favicon) {
+                if (enableFavicon) {
                   const observe = (request, sender, response) => {
                     if (request.method === 'fix-favicon') {
                       chrome.runtime.onMessage.removeListener(observe);
@@ -129,7 +130,7 @@ const discard = tab => {
               }
               return false;
             },
-            args: [prefs, href]
+            args: [prefs.prepends, prefs.favicon, href]
           })
         ]).then(r => {
           if (r.some(o => o.result === 'async')) {
